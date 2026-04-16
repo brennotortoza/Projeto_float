@@ -1,15 +1,20 @@
 <?php
-$ocon = mysqli_connect(getenv('MYSQLHOST'), getenv('MYSQLUSER'), getenv('MYSQLPASSWORD'), getenv('MYSQLDATABASE'), getenv('MYSQLPORT'));
+// Pega os dados reais do painel do Railway
+$host = getenv('MYSQLHOST');
+$user = getenv('MYSQLUSER');
+$pass = getenv('MYSQLPASSWORD');
+$db   = getenv('MYSQLDATABASE'); // Verifique se no Railway está MYSQLDATABASE ou MYSQL_DATABASE
+$port = getenv('MYSQLPORT');
 
-$resposta = array();
+// Faz a conexão usando as variáveis (SEM aspas nos nomes das variáveis)
+$ocon = mysqli_connect($host, $user, $pass, $db, $port);
 
-if(!$ocon){
-    $resposta["status"] = "erro";
-    $resposta["mensagem"] = "Falha na conexão com o banco de dados";
-    echo json_encode($resposta);
+if (!$ocon) {
+    header('Content-Type: application/json');
+    echo json_encode([
+        "status" => "erro",
+        "mensagem" => "Falha na conexão: " . mysqli_connect_error()
+    ]);
     exit;
-}
-else{
-    echo "Conexão bem sucedida";
 }
 ?>
