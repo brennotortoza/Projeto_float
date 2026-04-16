@@ -3,7 +3,7 @@
 $host = getenv('MYSQLHOST');
 $user = getenv('MYSQLUSER');
 $pass = getenv('MYSQLPASSWORD');
-$db   = getenv('MYSQLDATABASE'); // Verifique se no Railway está MYSQLDATABASE ou MYSQL_DATABASE
+$db   = getenv('MYSQL_DATABASE'); // Verifique se no Railway está MYSQLDATABASE ou MYSQL_DATABASE
 $port = getenv('MYSQLPORT');
 
 // Faz a conexão usando as variáveis (SEM aspas nos nomes das variáveis)
