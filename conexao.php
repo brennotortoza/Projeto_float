@@ -3,7 +3,7 @@
 $host = getenv('MYSQLHOST');
 $user = getenv('MYSQLUSER');
 $pass = getenv('MYSQLPASSWORD');
-$db   = getenv('MYSQL_DATABASE') :? "railway"; // Verifique se no Railway está sem o underline (_)
+$db   = getenv('MYSQL_DATABASE') ?: "railway"; // Verifique se no Railway está sem o underline (_)
 $port = getenv('MYSQLPORT');
 
 // FAZ A CONEXÃO USANDO AS VARIÁVEIS (SEM ASPAS NOS NOMES)
