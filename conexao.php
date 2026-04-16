@@ -1,5 +1,5 @@
 <?php
-$ocon = mysqli_connect('MYSQLHOST', 'MYSQLUSER', 'MYSQLPASSWORD', 'MYSQL_DATABASE');
+$ocon = mysqli_connect(getenv('MYSQLHOST'), getenv('MYSQLUSER'), getenv('MYSQLPASSWORD'), getenv('MYSQL_DATABASE'), getenv('MYSQLPORT'));
 
 $resposta = array();
 
