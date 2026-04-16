@@ -1,40 +1,35 @@
 <?php
-header('Content-Type: application/json');
-include 'conexao.php';
+    include 'conexao.php';
 
-$email = trim($_POST['email']);
-$senha = $_POST['senha'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
 
-$resposta = array();
+    if(isset($ocon) && $ocon){
 
-if (isset($ocon) && $ocon) {
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        
-        $verificar = "SELECT * FROM Usuario WHERE email = '$email'";
-        $query_verificar = mysqli_query($ocon, $verificar);
-
-        if (mysqli_num_rows($query_verificar) == 0) {
-            $cadastrar = "INSERT INTO Usuario(email, senha) VALUES('$email','$senha')";
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
             
-            if (mysqli_query($ocon, $cadastrar)) {
-                $resposta["status"] = "sucesso";
-                $resposta["mensagem"] = "Cadastro bem sucedido";
-            } else {
-                $resposta["status"] = "erro";
-                $resposta["mensagem"] = "Erro ao inserir dados";
-            }
-        } else {
-            $resposta["status"] = "erro";
-            $resposta["mensagem"] = "Email já cadastrado";
-        }
-    } else {
-        $resposta["status"] = "erro";
-        $resposta["mensagem"] = "Email inválido";
-    }
-} else {
-    $resposta["status"] = "erro";
-    $resposta["mensagem"] = "Falha de conexão";
-}
+            $verificar = "SELECT * FROM Usuario WHERE email = '$email'";
 
-echo json_encode($resposta);
+            if(mysqli_num_rows(mysqli_query($ocon, $verificar)) == 0){
+
+            $cadastrar = "INSERT INTO Usuario(email, senha) VALUES('$email','$senha')";
+
+                if(mysqli_query($ocon, $cadastrar)){
+                    $resposta["status"] = "sucesso";
+                    $resposta["mensagem"] = "Cadastro bem sucedido";
+                    echo json_encode($resposta);
+                }
+            }
+            else{
+                $resposta["status"] = "erro";
+                $resposta["mensagem"] = "Email já cadastrado";
+                echo json_encode($resposta);
+            }
+        }
+        else{
+            $resposta["status"] = "erro";
+            $resposta["mensagem"] = "Email inválido";
+            echo json_encode($resposta);
+        }
+    }
 ?>

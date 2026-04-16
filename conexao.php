@@ -1,18 +1,22 @@
 <?php
-// Pega os valores reais que estão guardados no painel do Railway
-$host = getenv('MYSQLHOST');
-$user = getenv('MYSQLUSER');
-$pass = getenv('MYSQLPASSWORD');
-$db   = getenv('MYSQL_DATABASE') ?: "railway"; // Verifique se no Railway está sem o underline (_)
-$port = getenv('MYSQLPORT');
 
-// FAZ A CONEXÃO USANDO AS VARIÁVEIS (SEM ASPAS NOS NOMES)
-$ocon = mysqli_connect($host, $user, $pass, $db, $port);
+//Inicia a conexão com o banco
+$ocon = mysqli_connect(
+        getenv('MYSQLHOST'),
+        getenv('MYSQLUSER'),
+        getenv('MYSQLPASSWORD'),
+        getenv('MYSQL_DATABASE') /*?: "railway"*/,
+        getenv('MYSQLPORT'));
 
-if (!$ocon) {
+//Cria a variável de retorno
+$respota = array();
+
+//Erro se a conexão der errado
+if(!$ocon){
     header('Content-Type: application/json');
     $resposta["status"] = "erro";
-    $resposta["mensagem"] = "Erro de conexão com o banco de dados";
+    $resposta["mensagem"] = "Falha na conexão com o banco de dados";
+    echo json_encode($resposta);
     exit;
 }
 ?>
