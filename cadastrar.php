@@ -33,7 +33,7 @@ if (isset($ocon) && $ocon) {
     }
 } else {
     $resposta["status"] = "erro";
-    $resposta["mensagem"] = "Falha na variável de conexão";
+    $resposta["mensagem"] = "Falha de conexão";
 }
 
 echo json_encode($resposta);
