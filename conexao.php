@@ -1,20 +1,19 @@
 <?php
-// Pega os valores reais que estão guardados no painel do Railway
-$host = getenv('MYSQLHOST');
-$user = getenv('MYSQLUSER');
-$pass = getenv('MYSQLPASSWORD');
-$db   = getenv('MYSQLDATABASE'); // Verifique se no Railway está sem o underline (_)
-$port = getenv('MYSQLPORT');
+// Tenta pegar de $_ENV, se falhar tenta getenv
+$host = $_ENV['DB_HOST'] ?? getenv('DB_HOST');
+$user = $_ENV['DB_USER'] ?? getenv('DB_USER');
+$pass = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD');
+$db   = $_ENV['DB_NAME'] ?? getenv('DB_NAME');
+$port = $_ENV['MYSQLPORT'] ?? '3306';
 
-// FAZ A CONEXÃO USANDO AS VARIÁVEIS (SEM ASPAS NOS NOMES)
-$ocon = mysqli_connect($host, $user, $pass, $db, $port);
+// Força a exibição de erros para o Log te mostrar a verdade
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-if (!$ocon) {
+try {
+    $ocon = mysqli_connect($host, $user, $pass, $db, $port);
+} catch (Exception $e) {
     header('Content-Type: application/json');
-    echo json_encode([
-        "status" => "erro",
-        "mensagem" => "Falha na conexão: " . mysqli_connect_error()
-    ]);
+    echo json_encode(["status" => "erro", "mensagem" => "Erro real: " . $e->getMessage()]);
     exit;
 }
 ?>
