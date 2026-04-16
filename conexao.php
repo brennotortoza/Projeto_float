@@ -1,19 +1,16 @@
 <?php
-// Tenta pegar de $_ENV, se falhar tenta getenv
-$host = $_ENV['DB_HOST'] ?? getenv('DB_HOST');
-$user = $_ENV['DB_USER'] ?? getenv('DB_USER');
-$pass = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD');
-$db   = $_ENV['DB_NAME'] ?? getenv('DB_NAME');
-$port = $_ENV['MYSQLPORT'] ?? '3306';
+// VALORES REAIS DO SEU BANCO NO RAILWAY
+$host = 'mysql.railway.internal';
+$user = 'root';
+$pass = 'uYbOgZGxOSIZVefbqwOsXZIKDasRtjrd';
+$db   = 'railway';
+$port = '3306';
 
-// Força a exibição de erros para o Log te mostrar a verdade
-mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+// Tenta a conexão direta
+$ocon = mysqli_connect($host, $user, $pass, $db, $port);
 
-try {
-    $ocon = mysqli_connect($host, $user, $pass, $db, $port);
-} catch (Exception $e) {
+if (!$ocon) {
     header('Content-Type: application/json');
-    echo json_encode(["status" => "erro", "mensagem" => "Erro real: " . $e->getMessage()]);
-    exit;
+    die(json_encode(["status" => "erro", "mensagem" => mysqli_connect_error()]));
 }
 ?>
