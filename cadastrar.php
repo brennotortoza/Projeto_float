@@ -8,6 +8,8 @@
 
     $cadastrar = "INSERT INTO Usuario(email, senha) VALUES('$email','$senha')";
     $verificar = "SELECT * FROM Usuario WHERE email = '$email'";
+    $resposta = array();
+
 
     if(isset($ocon) && $ocon){
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
