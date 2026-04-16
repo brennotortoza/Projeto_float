@@ -1,5 +1,5 @@
 <?php
-$ocon = mysqli_connect('sql100.infinityfree.com', 'if0_41354013', 'WaBtW3zGedx', 'if0_41354013_usuario');
+$ocon = mysqli_connect('MYSQLHOST', 'MYSQLUSER', 'MYSQLPASSWORD', 'MYSQL_DATABASE');
 
 $respota = array();
 
