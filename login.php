@@ -6,7 +6,7 @@
 
     $verificar = "SELECT * FROM Usuario WHERE email = '$email' AND senha = '$senha'";
 
-    if($ocon){
+    if(isset($ocon) && $ocon){
         if(mysqli_num_rows(mysqli_query($ocon, $verificar)) > 0){
             $resposta["status"] = "sucesso";
             $resposta["mensagem"] = "Login bem sucedido";
