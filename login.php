@@ -1,0 +1,21 @@
+<?php
+    include 'conexao.php';
+
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    $verificar = "SELECT * FROM Usuario WHERE email = '$email' AND senha = '$senha'";
+
+    if($ocon){
+        if(mysqli_num_rows($ocon, $verificar) > 0){
+            $resposta["status"] = "sucesso";
+            $resposta["mensagem"] = "Login bem sucedido";
+            echo json_encode($resposta);
+        }
+        else{
+            $resposta["status"] = "erro";
+            $resposta["mensagem"] = "Email ou senha estão errado, tente novamente";
+            echo json_encode($resposta);
+        }
+    }
+?>
