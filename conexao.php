@@ -9,7 +9,7 @@ $ocon = mysqli_connect(
         getenv('MYSQLPORT'));
 
 //Cria a variável de retorno
-$respota = arrays();
+$resposta = array();
 
 //Erro se a conexão der errado
 if(!$ocon){
