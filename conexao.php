@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: application/json');
 //Inicia a conexão com o banco
 $ocon = mysqli_connect(
         getenv('MYSQLHOST'),
@@ -9,7 +9,7 @@ $ocon = mysqli_connect(
         getenv('MYSQLPORT'));
 
 //Cria a variável de retorno
-$respota = array();
+$respota = arrays();
 
 //Erro se a conexão der errado
 if(!$ocon){
